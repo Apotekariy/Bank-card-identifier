@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.retrofit)
     //Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.converter.kotlinx.serialization)
     //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
