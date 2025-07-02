@@ -9,6 +9,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import javax.inject.Singleton
 import kotlinx.serialization.json.Json
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 @Module
@@ -17,10 +19,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val json = Json { ignoreUnknownKeys = true }
         return Retrofit.Builder()
             .baseUrl("https://lookup.binlist.net/")
+            .client(okHttpClient)
             .addConverterFactory(
                 json.asConverterFactory("application/json".toMediaType())
             )
@@ -33,5 +36,22 @@ object NetworkModule {
         return  retrofit.create(ApiService::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+    }
 
 }
