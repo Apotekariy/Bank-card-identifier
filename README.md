@@ -23,3 +23,4 @@
 - **Навигация**: Compose Navigation
 
 ## Демонстрация
+![](https://github.com/Apotekariy/Bank-card-identifier/blob/main/Bank%20Card%20Identifier.gif)
