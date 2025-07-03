@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,14 +37,11 @@ import com.example.bank_card_identifier.domain.model.Info
 
 @Composable
 fun BankCardScreen(
-    onNavigateToHistory: () -> Unit,
     viewModel: BankCardViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var textFieldValue by remember { mutableStateOf("") }
-
-    //проверить!!!
-    
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(textFieldValue) {
         viewModel.updateCardNumber(textFieldValue)
@@ -64,7 +62,9 @@ fun BankCardScreen(
             SearchSection(
                 textFieldValue = textFieldValue,
                 onValueChange = { textFieldValue = it },
-                onSearchClick = { viewModel.fetchCardInfo() },
+                onSearchClick = {
+                    viewModel.fetchCardInfo()
+                    keyboardController?.hide() },
                 isEnabled = textFieldValue.length >= 6,
                 isLoading = uiState is BankCardUiState.Loading
             )

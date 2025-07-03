@@ -74,8 +74,9 @@ dependencies {
     //Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
-    //Navigation jetpack compose + hilt navigation
+    //Navigation (jetpack compose + hilt navigation)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
-
+    //Material3
+    implementation(libs.androidx.material)
 }
