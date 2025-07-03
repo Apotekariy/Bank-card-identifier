@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.bank_card_identifier.presentation.BankCardScreen
+import com.example.bank_card_identifier.navigation.NavHost
 import com.example.bank_card_identifier.ui.theme.BankcardidentifierTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BankcardidentifierTheme {
-                    BankCardScreen()
+                    NavHost()
             }
         }
     }

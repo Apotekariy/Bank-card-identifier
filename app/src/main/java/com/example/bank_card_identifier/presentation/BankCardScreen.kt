@@ -35,10 +35,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bank_card_identifier.domain.model.Info
 
 @Composable
-fun BankCardScreen(viewModel: BankCardViewModel = hiltViewModel()) {
+fun BankCardScreen(
+    onNavigateToHistory: () -> Unit,
+    viewModel: BankCardViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsState()
-
     var textFieldValue by remember { mutableStateOf("") }
+
+    //проверить!!!
+    
 
     LaunchedEffect(textFieldValue) {
         viewModel.updateCardNumber(textFieldValue)
